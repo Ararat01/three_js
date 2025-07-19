@@ -22,23 +22,27 @@ controls.enableRotate = false;
 
 camera.position.set(0, 1, 3);
 
-const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
-light.position.set(0, 20, 0);
-scene.add(light);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+directionalLight.position.set(5, 5, 25).normalize();
+scene.add(directionalLight);
 
 const textureLoader = new THREE.TextureLoader();
 const baseColorMap = textureLoader.load(
   "model/textures/texture_pbr_v128_1.png"
+  //   "model/textures/c-texture_pbr_v128_1.png"
 );
 const metalRoughMap = textureLoader.load(
   "model/textures/texture_pbr_v128_metallic-texture_pbr_v128_roughness_2@chann.png"
+  //   "model/textures/c-texture_pbr_v128_metallic-texture_pbr_v128_roughness_2@chann.png"
 );
 const normalMap = textureLoader.load(
   "model/textures/texture_pbr_v128_normal_0.png"
+  //   "model/textures/c-texture_pbr_v128_normal_0.png"
 );
 
-let model; // ✅ make it global
+let model;
 const loader = new GLTFLoader();
+// loader.load("model/Combi.glb", (gltf) => {
 loader.load("model/myModel.glb", (gltf) => {
   model = gltf.scene;
 
@@ -86,6 +90,10 @@ function animate() {
 
   if (model) {
     model.rotation.x += (targetRotationX - model.rotation.x) * 0.1;
+    // for Combi
+    // model.rotation.y += (targetRotationY - model.rotation.y) * 0.1 - 0.1;
+    //
+    // for bike
     model.rotation.y += (targetRotationY - model.rotation.y) * 0.1 - 0.05;
   }
 
